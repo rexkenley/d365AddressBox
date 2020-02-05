@@ -1,0 +1,586 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots AddressBox Initial 1`] = `
+<div
+  className="ms-Fabric is-focusHidden ms-Fabric--isFocusHidden root-49"
+  dir="ltr"
+>
+  <div
+    className="ms-Stack css-51"
+  >
+    <div
+      className="ms-SearchBox root-52"
+      onFocusCapture={[Function]}
+      role="search"
+    >
+      <div
+        aria-hidden={true}
+        className="ms-SearchBox-iconContainer iconContainer-53"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden={true}
+          className="ms-SearchBox-icon icon-57"
+          data-icon-name="Search"
+        />
+      </div>
+      <input
+        className="ms-SearchBox-field field-56"
+        id="SearchBox1"
+        onChange={[Function]}
+        onInput={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Enter Address"
+        role="searchbox"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots AddressBox with props city 1`] = `
+<div
+  className="ms-Fabric is-focusHidden ms-Fabric--isFocusHidden root-49"
+  dir="ltr"
+>
+  <div
+    className="ms-Stack css-51"
+  >
+    <div
+      className="ms-SearchBox root-52"
+      onFocusCapture={[Function]}
+      role="search"
+    >
+      <div
+        aria-hidden={true}
+        className="ms-SearchBox-iconContainer iconContainer-53"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden={true}
+          className="ms-SearchBox-icon icon-57"
+          data-icon-name="Search"
+        />
+      </div>
+      <input
+        className="ms-SearchBox-field field-56"
+        id="SearchBox7"
+        onChange={[Function]}
+        onInput={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Enter Address"
+        role="searchbox"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots AddressBox with props composite 1`] = `
+<div
+  className="ms-Fabric is-focusHidden ms-Fabric--isFocusHidden root-49"
+  dir="ltr"
+>
+  <div
+    className="ms-Stack css-51"
+  >
+    <div
+      className="ms-SearchBox root-52"
+      onFocusCapture={[Function]}
+      role="search"
+    >
+      <div
+        aria-hidden={true}
+        className="ms-SearchBox-iconContainer iconContainer-53"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden={true}
+          className="ms-SearchBox-icon icon-57"
+          data-icon-name="Search"
+        />
+      </div>
+      <input
+        className="ms-SearchBox-field field-56"
+        id="SearchBox2"
+        onChange={[Function]}
+        onInput={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Enter Address"
+        role="searchbox"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots AddressBox with props country 1`] = `
+<div
+  className="ms-Fabric is-focusHidden ms-Fabric--isFocusHidden root-49"
+  dir="ltr"
+>
+  <div
+    className="ms-Stack css-51"
+  >
+    <div
+      className="ms-SearchBox root-52"
+      onFocusCapture={[Function]}
+      role="search"
+    >
+      <div
+        aria-hidden={true}
+        className="ms-SearchBox-iconContainer iconContainer-53"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden={true}
+          className="ms-SearchBox-icon icon-57"
+          data-icon-name="Search"
+        />
+      </div>
+      <input
+        className="ms-SearchBox-field field-56"
+        id="SearchBox11"
+        onChange={[Function]}
+        onInput={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Enter Address"
+        role="searchbox"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots AddressBox with props county 1`] = `
+<div
+  className="ms-Fabric is-focusHidden ms-Fabric--isFocusHidden root-49"
+  dir="ltr"
+>
+  <div
+    className="ms-Stack css-51"
+  >
+    <div
+      className="ms-SearchBox root-52"
+      onFocusCapture={[Function]}
+      role="search"
+    >
+      <div
+        aria-hidden={true}
+        className="ms-SearchBox-iconContainer iconContainer-53"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden={true}
+          className="ms-SearchBox-icon icon-57"
+          data-icon-name="Search"
+        />
+      </div>
+      <input
+        className="ms-SearchBox-field field-56"
+        id="SearchBox10"
+        onChange={[Function]}
+        onInput={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Enter Address"
+        role="searchbox"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots AddressBox with props latitude 1`] = `
+<div
+  className="ms-Fabric is-focusHidden ms-Fabric--isFocusHidden root-49"
+  dir="ltr"
+>
+  <div
+    className="ms-Stack css-51"
+  >
+    <div
+      className="ms-SearchBox root-52"
+      onFocusCapture={[Function]}
+      role="search"
+    >
+      <div
+        aria-hidden={true}
+        className="ms-SearchBox-iconContainer iconContainer-53"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden={true}
+          className="ms-SearchBox-icon icon-57"
+          data-icon-name="Search"
+        />
+      </div>
+      <input
+        className="ms-SearchBox-field field-56"
+        id="SearchBox12"
+        onChange={[Function]}
+        onInput={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Enter Address"
+        role="searchbox"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots AddressBox with props line1 1`] = `
+<div
+  className="ms-Fabric is-focusHidden ms-Fabric--isFocusHidden root-49"
+  dir="ltr"
+>
+  <div
+    className="ms-Stack css-51"
+  >
+    <div
+      className="ms-SearchBox root-52"
+      onFocusCapture={[Function]}
+      role="search"
+    >
+      <div
+        aria-hidden={true}
+        className="ms-SearchBox-iconContainer iconContainer-53"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden={true}
+          className="ms-SearchBox-icon icon-57"
+          data-icon-name="Search"
+        />
+      </div>
+      <input
+        className="ms-SearchBox-field field-56"
+        id="SearchBox3"
+        onChange={[Function]}
+        onInput={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Enter Address"
+        role="searchbox"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots AddressBox with props line2 1`] = `
+<div
+  className="ms-Fabric is-focusHidden ms-Fabric--isFocusHidden root-49"
+  dir="ltr"
+>
+  <div
+    className="ms-Stack css-51"
+  >
+    <div
+      className="ms-SearchBox root-52"
+      onFocusCapture={[Function]}
+      role="search"
+    >
+      <div
+        aria-hidden={true}
+        className="ms-SearchBox-iconContainer iconContainer-53"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden={true}
+          className="ms-SearchBox-icon icon-57"
+          data-icon-name="Search"
+        />
+      </div>
+      <input
+        className="ms-SearchBox-field field-56"
+        id="SearchBox4"
+        onChange={[Function]}
+        onInput={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Enter Address"
+        role="searchbox"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots AddressBox with props line3 1`] = `
+<div
+  className="ms-Fabric is-focusHidden ms-Fabric--isFocusHidden root-49"
+  dir="ltr"
+>
+  <div
+    className="ms-Stack css-51"
+  >
+    <div
+      className="ms-SearchBox root-52"
+      onFocusCapture={[Function]}
+      role="search"
+    >
+      <div
+        aria-hidden={true}
+        className="ms-SearchBox-iconContainer iconContainer-53"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden={true}
+          className="ms-SearchBox-icon icon-57"
+          data-icon-name="Search"
+        />
+      </div>
+      <input
+        className="ms-SearchBox-field field-56"
+        id="SearchBox5"
+        onChange={[Function]}
+        onInput={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Enter Address"
+        role="searchbox"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots AddressBox with props longtitude 1`] = `
+<div
+  className="ms-Fabric is-focusHidden ms-Fabric--isFocusHidden root-49"
+  dir="ltr"
+>
+  <div
+    className="ms-Stack css-51"
+  >
+    <div
+      className="ms-SearchBox root-52"
+      onFocusCapture={[Function]}
+      role="search"
+    >
+      <div
+        aria-hidden={true}
+        className="ms-SearchBox-iconContainer iconContainer-53"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden={true}
+          className="ms-SearchBox-icon icon-57"
+          data-icon-name="Search"
+        />
+      </div>
+      <input
+        className="ms-SearchBox-field field-56"
+        id="SearchBox13"
+        onChange={[Function]}
+        onInput={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Enter Address"
+        role="searchbox"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots AddressBox with props onAddressChange 1`] = `
+<div
+  className="ms-Fabric is-focusHidden ms-Fabric--isFocusHidden root-49"
+  dir="ltr"
+>
+  <div
+    className="ms-Stack css-51"
+  >
+    <div
+      className="ms-SearchBox root-52"
+      onFocusCapture={[Function]}
+      role="search"
+    >
+      <div
+        aria-hidden={true}
+        className="ms-SearchBox-iconContainer iconContainer-53"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden={true}
+          className="ms-SearchBox-icon icon-57"
+          data-icon-name="Search"
+        />
+      </div>
+      <input
+        className="ms-SearchBox-field field-56"
+        id="SearchBox14"
+        onChange={[Function]}
+        onInput={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Enter Address"
+        role="searchbox"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots AddressBox with props onAddressSearch 1`] = `
+<div
+  className="ms-Fabric is-focusHidden ms-Fabric--isFocusHidden root-49"
+  dir="ltr"
+>
+  <div
+    className="ms-Stack css-51"
+  >
+    <div
+      className="ms-SearchBox root-52"
+      onFocusCapture={[Function]}
+      role="search"
+    >
+      <div
+        aria-hidden={true}
+        className="ms-SearchBox-iconContainer iconContainer-53"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden={true}
+          className="ms-SearchBox-icon icon-57"
+          data-icon-name="Search"
+        />
+      </div>
+      <input
+        className="ms-SearchBox-field field-56"
+        id="SearchBox15"
+        onChange={[Function]}
+        onInput={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Enter Address"
+        role="searchbox"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots AddressBox with props postOfficeBox 1`] = `
+<div
+  className="ms-Fabric is-focusHidden ms-Fabric--isFocusHidden root-49"
+  dir="ltr"
+>
+  <div
+    className="ms-Stack css-51"
+  >
+    <div
+      className="ms-SearchBox root-52"
+      onFocusCapture={[Function]}
+      role="search"
+    >
+      <div
+        aria-hidden={true}
+        className="ms-SearchBox-iconContainer iconContainer-53"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden={true}
+          className="ms-SearchBox-icon icon-57"
+          data-icon-name="Search"
+        />
+      </div>
+      <input
+        className="ms-SearchBox-field field-56"
+        id="SearchBox6"
+        onChange={[Function]}
+        onInput={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Enter Address"
+        role="searchbox"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots AddressBox with props postalCode 1`] = `
+<div
+  className="ms-Fabric is-focusHidden ms-Fabric--isFocusHidden root-49"
+  dir="ltr"
+>
+  <div
+    className="ms-Stack css-51"
+  >
+    <div
+      className="ms-SearchBox root-52"
+      onFocusCapture={[Function]}
+      role="search"
+    >
+      <div
+        aria-hidden={true}
+        className="ms-SearchBox-iconContainer iconContainer-53"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden={true}
+          className="ms-SearchBox-icon icon-57"
+          data-icon-name="Search"
+        />
+      </div>
+      <input
+        className="ms-SearchBox-field field-56"
+        id="SearchBox9"
+        onChange={[Function]}
+        onInput={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Enter Address"
+        role="searchbox"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots AddressBox with props stateOrProvince 1`] = `
+<div
+  className="ms-Fabric is-focusHidden ms-Fabric--isFocusHidden root-49"
+  dir="ltr"
+>
+  <div
+    className="ms-Stack css-51"
+  >
+    <div
+      className="ms-SearchBox root-52"
+      onFocusCapture={[Function]}
+      role="search"
+    >
+      <div
+        aria-hidden={true}
+        className="ms-SearchBox-iconContainer iconContainer-53"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden={true}
+          className="ms-SearchBox-icon icon-57"
+          data-icon-name="Search"
+        />
+      </div>
+      <input
+        className="ms-SearchBox-field field-56"
+        id="SearchBox8"
+        onChange={[Function]}
+        onInput={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Enter Address"
+        role="searchbox"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;

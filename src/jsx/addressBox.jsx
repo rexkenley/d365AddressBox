@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Fabric } from "office-ui-fabric-react/lib/Fabric";
 import { Stack } from "office-ui-fabric-react";
-import { TextField } from "office-ui-fabric-react/lib/TextField";
+import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
+import { initializeIcons } from "@uifabric/icons";
+
+import { composeAddress } from "../js/address";
+import { getAddresses, getSuggestions } from "../js/bingMaps";
+
+initializeIcons();
 
 /** @module addressBox */
 
 /**
  * @module addressBox/AddressBoxProps
  * @typedef {{}} AddressBoxProps
+ * @property {string} bingMapsUrl
+ * @property {string} bingMapsKey
+ * @property {int} maxResults
  * @property {string} composite
  * @property {string} line1
  * @property {string} line2
@@ -21,6 +30,7 @@ import { TextField } from "office-ui-fabric-react/lib/TextField";
  * @property {string} latitude
  * @property {string} longtitude
  * @property {function} onAddressChange
+ * @property {function} onAddressSearch
  */
 
 /**
@@ -32,6 +42,42 @@ import { TextField } from "office-ui-fabric-react/lib/TextField";
  */
 const AddressBox = props => {
   const {
+      bingMapsUrl,
+      bingMapsKey,
+      maxResults,
+      composite,
+      line1,
+      line2,
+      line3,
+      postOfficeBox,
+      city,
+      stateOrProvince,
+      postalCode,
+      county,
+      country,
+      latitude,
+      longtitude,
+      onAddressChange,
+      onAddressSearch
+    } = props,
+    [address, setAddress] = useState();
+
+  useEffect(() => {
+    setAddress(
+      composite ||
+        composeAddress(
+          line1,
+          line2,
+          line3,
+          postOfficeBox,
+          city,
+          stateOrProvince,
+          postalCode,
+          county,
+          country
+        )
+    );
+  }, [
     composite,
     line1,
     line2,
@@ -41,15 +87,40 @@ const AddressBox = props => {
     stateOrProvince,
     postalCode,
     county,
-    country,
-    latitude,
-    longtitude,
-    onAddressChange
-  } = props;
+    country
+  ]);
+
+  async function onSearch(val) {
+    await getSuggestions();
+    onAddressSearch && onAddressSearch(val);
+  }
 
   return (
     <Fabric>
-      <TextField />
+      <Stack tokens={{ childrenGap: 8 }} horizontal>
+        <SearchBox
+          placeholder="Enter Address"
+          value={address}
+          onSearch={async val => {
+            await getSuggestions(
+              bingMapsUrl,
+              bingMapsKey,
+              maxResults,
+              latitude,
+              longtitude,
+              val
+            );
+            onAddressSearch && onAddressSearch(val);
+          }}
+          onChange={async (ev, val) => {
+            setAddress(val);
+            onAddressChange && onAddressChange(val);
+          }}
+          onClear={() => {
+            setAddress();
+          }}
+        />
+      </Stack>
     </Fabric>
   );
 };

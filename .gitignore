@@ -16,3 +16,6 @@
 
 # test
 /test/__results__
+
+# bingMap key
+src/js/bingMapsKey.js
