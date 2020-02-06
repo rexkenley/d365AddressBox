@@ -45,17 +45,17 @@ storiesOf("AddressBox", module)
   .add("with props onAddressChange", () => (
     <AddressBox onAddressChange={action("onAddressChange")} />
   ))
-  .add("with props onAddressSearch", () => (
-    <AddressBox onAddressSearch={action("onAddressSearch")} />
+  .add("with props onAddressResults", () => (
+    <AddressBox onAddressResults={action("onAddressResults")} />
   ))
   .add(
-    "with props bingMapUrl, bingMapKey, maxResults and onAddressSearch",
+    "with props bingMapUrl, bingMapKey, maxResults and onAddressResults",
     () => (
       <AddressBox
         bingMapsUrl={bingMapsUrl}
         bingMapsKey={bingMapsKey}
         maxResults={maxResults}
-        onAddressSearch={action("onAddressSearch")}
+        onAddressResults={action("onAddressResults")}
       />
     )
   );

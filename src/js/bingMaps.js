@@ -1,5 +1,3 @@
-import greenlet from "greenlet";
-
 /** @module bingMaps */
 
 /**
@@ -22,6 +20,7 @@ export const getAddresses = async (
   maxResults,
   addressLine,
   city,
+  stateOrProvince,
   postalCode,
   country
 ) => {
@@ -43,8 +42,6 @@ export const getAddresses = async (
  * @param {string} bingMapsUrl
  * @param {string} bingMapsKey
  * @param {int} maxResults
- * @param {number} latitude
- * @param {number} longtitude
  * @param {string} query
  * @param {string} country
  * @param {string} culture
@@ -55,13 +52,11 @@ export const getSuggestions = async (
   bingMapsUrl,
   bingMapsKey,
   maxResults,
-  latitude,
-  longtitude,
   query,
   country = "US",
   culture = "en-US"
 ) => {
-  let url = `${bingMapsUrl}Autosuggest?key=${bingMapsKey}&maxResults=${maxResults}&userLocation=${latitude},${longtitude},5000}`;
+  let url = `${bingMapsUrl}Autosuggest?key=${bingMapsKey}&maxResults=${maxResults}`;
 
   if (query) url += `&query=${query}`;
   if (culture) url += `&culture=${culture}`;
