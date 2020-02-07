@@ -162,7 +162,20 @@ const sbRef = React.createRef(),
                 onAddressChange && onAddressChange(val);
               }}
               onClear={() => {
-                setComposite();
+                setComposite("");
+                setLine1("");
+                setLine2("");
+                setLine3("");
+                setPostOfficeBox("");
+                setCity("");
+                setStateOrProvince("");
+                setPostalCode("");
+                setCounty("");
+                setCountry("");
+                setLatitude("");
+                setLongtitude("");
+                setSuggestions([]);
+                setShowDetails(false);
               }}
             />
           </div>
