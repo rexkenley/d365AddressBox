@@ -4,17 +4,16 @@ import {
   Stack,
   Callout,
   DirectionalHint,
-  IconButton
+  IconButton,
+  PrimaryButton
 } from "office-ui-fabric-react";
 import {
   DetailsList,
-  DetailsListLayoutMode,
-  Selection,
-  SelectionMode,
-  IColumn
+  SelectionMode
 } from "office-ui-fabric-react/lib/DetailsList";
 import { Fabric } from "office-ui-fabric-react/lib/Fabric";
 import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
+import { TextField } from "office-ui-fabric-react/lib/TextField";
 import { initializeIcons } from "@uifabric/icons";
 
 import { composeAddress } from "../js/address";
@@ -57,6 +56,7 @@ const sbRef = React.createRef(),
   columns = [
     { key: "address", name: "Address", fieldName: "formattedAddress" }
   ],
+  calloutWidth = 350,
   AddressBox = props => {
     const {
         bingMapsUrl,
@@ -77,13 +77,21 @@ const sbRef = React.createRef(),
         onAddressChange,
         onAddressResults
       } = props,
-      [address, setAddress] = useState(),
-      [addressDetails, setAddressDetails] = useState(),
+      [_composite, setComposite] = useState(""),
+      [_line1, setLine1] = useState(""),
+      [_line2, setLine2] = useState(""),
+      [_line3, setLine3] = useState(""),
+      [_postOfficeBox, setPostOfficeBox] = useState(""),
+      [_city, setCity] = useState(""),
+      [_stateOrProvince, setStateOrProvince] = useState(""),
+      [_postalCode, setPostalCode] = useState(""),
+      [_county, setCounty] = useState(""),
+      [_country, setCountry] = useState(""),
       [suggestions, setSuggestions] = useState([]),
       [showDetails, setShowDetails] = useState(false);
 
     useEffect(() => {
-      setAddress(
+      setComposite(
         composite ||
           composeAddress(
             line1,
@@ -117,7 +125,7 @@ const sbRef = React.createRef(),
           <div ref={sbRef}>
             <SearchBox
               placeholder="Enter Address"
-              value={address}
+              value={_composite}
               onSearch={async val => {
                 const res = await getSuggestions(
                     bingMapsUrl,
@@ -135,11 +143,11 @@ const sbRef = React.createRef(),
                 onAddressResults && onAddressResults(suggestions);
               }}
               onChange={async (ev, val) => {
-                setAddress(val);
+                setComposite(val);
                 onAddressChange && onAddressChange(val);
               }}
               onClear={() => {
-                setAddress();
+                setComposite();
               }}
             />
           </div>
@@ -153,7 +161,7 @@ const sbRef = React.createRef(),
             target={sbRef}
             isBeakVisible={false}
             coverTarget={false}
-            calloutWidth={350}
+            calloutWidth={calloutWidth}
             directionalHint={DirectionalHint.bottomLeftEdge}
             onDismiss={() => {
               setSuggestions([]);
@@ -164,6 +172,32 @@ const sbRef = React.createRef(),
               items={suggestions}
               checkboxVisibility={2}
               selectionMode={SelectionMode.single}
+              onItemInvoked={item => {
+                const {
+                  formattedAddress,
+                  addressLine,
+                  locality,
+                  adminDistrict,
+                  postalCode,
+                  adminDistrict2,
+                  countryRegion
+                } = item;
+
+                setComposite(formattedAddress);
+                setLine1(addressLine);
+                setCity(locality);
+                setStateOrProvince(adminDistrict);
+                setPostalCode(postalCode);
+                setCounty(adminDistrict2);
+                setCountry(countryRegion);
+                setSuggestions([]);
+              }}
+            />
+            <PrimaryButton
+              text="Close"
+              onClick={() => {
+                setSuggestions([]);
+              }}
             />
           </Callout>
         )}
@@ -172,12 +206,91 @@ const sbRef = React.createRef(),
             target={sbRef}
             isBeakVisible={false}
             coverTarget={false}
-            calloutWidth={350}
+            calloutWidth={calloutWidth}
             directionalHint={DirectionalHint.bottomLeftEdge}
             onDismiss={() => {
               setShowDetails(false);
             }}
-          ></Callout>
+          >
+            <TextField
+              underlined
+              label="Line1"
+              value={_line1}
+              onChange={(evt, val) => {
+                setLine1(val);
+              }}
+            />
+            <TextField
+              underlined
+              label="Line2"
+              value={_line2}
+              onChange={(evt, val) => {
+                setLine2(val);
+              }}
+            />
+            <TextField
+              underlined
+              label="Line3"
+              value={_line3}
+              onChange={(evt, val) => {
+                setLine3(val);
+              }}
+            />
+            <TextField
+              underlined
+              label="Post Office Box"
+              value={_postOfficeBox}
+              onChange={(evt, val) => {
+                setPostOfficeBox(val);
+              }}
+            />
+            <TextField
+              underlined
+              label="City"
+              value={_city}
+              onChange={(evt, val) => {
+                setCity(val);
+              }}
+            />
+            <TextField
+              underlined
+              label="State Or Province"
+              value={_stateOrProvince}
+              onChange={(evt, val) => {
+                setStateOrProvince(val);
+              }}
+            />
+            <TextField
+              underlined
+              label="Postal Code"
+              value={_postalCode}
+              onChange={(evt, val) => {
+                setPostalCode(val);
+              }}
+            />
+            <TextField
+              underlined
+              label="County"
+              value={_county}
+              onChange={(evt, val) => {
+                setCounty(val);
+              }}
+            />
+            <TextField
+              underlined
+              label="Country"
+              value={_country}
+              onChange={(evt, val) => {
+                setCountry(val);
+              }}
+            />
+            <PrimaryButton
+              text="Close"
+              onClick={() => {
+                setShowDetails(false);
+              }}
+            />
+          </Callout>
         )}
       </Fabric>
     );
