@@ -87,8 +87,10 @@ const sbRef = React.createRef(),
       [_postalCode, setPostalCode] = useState(""),
       [_county, setCounty] = useState(""),
       [_country, setCountry] = useState(""),
-      [suggestions, setSuggestions] = useState([]),
-      [showDetails, setShowDetails] = useState(false);
+      [_latitude, setLatitude] = useState(""),
+      [_longtitude, setLongtitude] = useState(""),
+      [_suggestions, setSuggestions] = useState([]),
+      [_showDetails, setShowDetails] = useState(false);
 
     useEffect(() => {
       setComposite(
@@ -105,6 +107,17 @@ const sbRef = React.createRef(),
             country
           )
       );
+      setLine1(line1);
+      setLine2(line2);
+      setLine3(line3);
+      setPostOfficeBox(postOfficeBox);
+      setCity(city);
+      setStateOrProvince(stateOrProvince);
+      setPostalCode(postalCode);
+      setCounty(county);
+      setCountry(country);
+      setLatitude(latitude);
+      setLongtitude(longtitude);
       setSuggestions([]);
     }, [
       composite,
@@ -116,7 +129,9 @@ const sbRef = React.createRef(),
       stateOrProvince,
       postalCode,
       county,
-      country
+      country,
+      latitude,
+      longtitude
     ]);
 
     return (
@@ -156,7 +171,7 @@ const sbRef = React.createRef(),
             onClick={() => setShowDetails(true)}
           />
         </Stack>
-        {!!suggestions.length && (
+        {!!_suggestions.length && (
           <Callout
             target={sbRef}
             isBeakVisible={false}
@@ -169,27 +184,42 @@ const sbRef = React.createRef(),
           >
             <DetailsList
               columns={columns}
-              items={suggestions}
+              items={_suggestions}
               checkboxVisibility={2}
               selectionMode={SelectionMode.single}
-              onItemInvoked={item => {
+              onItemInvoked={async item => {
                 const {
-                  formattedAddress,
-                  addressLine,
-                  locality,
-                  adminDistrict,
-                  postalCode,
-                  adminDistrict2,
-                  countryRegion
-                } = item;
+                    addressLine,
+                    locality,
+                    adminDistrict,
+                    postalCode,
+                    countryRegion
+                  } = item,
+                  res = await getAddresses(
+                    bingMapsUrl,
+                    bingMapsKey,
+                    maxResults,
+                    addressLine,
+                    locality,
+                    adminDistrict,
+                    postalCode,
+                    countryRegion
+                  ),
+                  addresses = get(res, "resourceSets[0].resources[0]", []),
+                  {
+                    address,
+                    point: { coordinates }
+                  } = addresses;
 
-                setComposite(formattedAddress);
-                setLine1(addressLine);
-                setCity(locality);
-                setStateOrProvince(adminDistrict);
-                setPostalCode(postalCode);
-                setCounty(adminDistrict2);
-                setCountry(countryRegion);
+                setComposite(address.formattedAddress);
+                setLine1(address.addressLine);
+                setCity(address.locality);
+                setStateOrProvince(address.adminDistrict);
+                setPostalCode(address.postalCode);
+                setCounty(address.adminDistrict2);
+                setCountry(address.countryRegion);
+                setLatitude(coordinates[0]);
+                setLongtitude(coordinates[1]);
                 setSuggestions([]);
               }}
             />
@@ -201,7 +231,7 @@ const sbRef = React.createRef(),
             />
           </Callout>
         )}
-        {!!showDetails && (
+        {!!_showDetails && (
           <Callout
             target={sbRef}
             isBeakVisible={false}
@@ -282,6 +312,22 @@ const sbRef = React.createRef(),
               value={_country}
               onChange={(evt, val) => {
                 setCountry(val);
+              }}
+            />
+            <TextField
+              underlined
+              label="Latitude"
+              value={_latitude}
+              onChange={(evt, val) => {
+                setLatitude(val);
+              }}
+            />
+            <TextField
+              underlined
+              label="Longtitude"
+              value={_longtitude}
+              onChange={(evt, val) => {
+                setLongtitude(val);
               }}
             />
             <PrimaryButton
