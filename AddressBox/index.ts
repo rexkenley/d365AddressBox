@@ -23,6 +23,7 @@ export class AddressBox
   private country: string;
   private latitude: string;
   private longtitude: string;
+  private meta: object;
 
   /**
    * Used to initialize the control instance. Controls can kick off remote server calls and other initialization actions here.
@@ -72,6 +73,19 @@ export class AddressBox
     this.country = (country && country.raw) || "";
     this.latitude = (latitude && latitude.raw) || "";
     this.longtitude = (longtitude && longtitude.raw) || "";
+    this.meta = {
+      line1: line1.attributes,
+      line2: line2.attributes,
+      line3: line3.attributes,
+      postOfficeBox: postOfficeBox.attributes,
+      city: city.attributes,
+      stateOrProvince: stateOrProvince.attributes,
+      postalCode: postalCode.attributes,
+      county: county.attributes,
+      country: country.attributes,
+      latitude: latitude.attributes,
+      longtitude: longtitude.attributes
+    };
 
     // Add control initialization code
     ReactDOM.render(
@@ -89,6 +103,7 @@ export class AddressBox
         country: this.country,
         latitude: this.latitude,
         longtitude: this.longtitude,
+        meta: this.meta,
         disabled: this.isControlDisabled,
         hidden: !this.isVisible,
         onAddressChange: (
@@ -185,6 +200,7 @@ export class AddressBox
         country: this.country,
         latitude: this.latitude,
         longtitude: this.longtitude,
+        meta: this.meta,
         disabled: this.isControlDisabled,
         hidden: !this.isVisible,
         onAddressChange: (

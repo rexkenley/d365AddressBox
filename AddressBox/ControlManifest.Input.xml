@@ -2,7 +2,7 @@
 <manifest>
   <control namespace="d365" constructor="AddressBox" version="0.0.1" display-name-key="AddressBox" description-key="AddressBox description" control-type="standard">
     <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
-    <property name="composite" display-name-key="composite" description-key="Composite Address" of-type="Multiple" usage="bound" required="false" />
+    <property name="composite" display-name-key="composite" description-key="Composite Address" of-type="Multiple" usage="bound" required="true" />
     <property name="line1" display-name-key="line1" description-key="Address Line 1" of-type="SingleLine.Text" usage="bound" required="false" />
     <property name="line2" display-name-key="line2" description-key="Address Line 2" of-type="SingleLine.Text" usage="bound" required="false" />
     <property name="line3" display-name-key="line3" description-key="Address Line 3" of-type="SingleLine.Text" usage="bound" required="false" />

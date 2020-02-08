@@ -26,6 +26,7 @@ initializeIcons();
 /**
  * @module addressBox/AddressBoxProps
  * @typedef {{}} AddressBoxProps
+ * @property {{}} context
  * @property {string} bingMapsUrl
  * @property {string} bingMapsKey
  * @property {int} maxResults
@@ -41,8 +42,10 @@ initializeIcons();
  * @property {string} country
  * @property {string} latitude
  * @property {string} longtitude
+ * @property {{}} meta
+ * @property {boolean} disabled
+ * @property {boolean} hidden
  * @property {function} onAddressChange
- * @property {function} onAddressResults
  */
 
 /**
@@ -59,6 +62,7 @@ const sbRef = React.createRef(),
   calloutWidth = 350,
   AddressBox = props => {
     const {
+        context,
         bingMapsUrl,
         bingMapsKey,
         maxResults,
@@ -74,8 +78,10 @@ const sbRef = React.createRef(),
         country,
         latitude,
         longtitude,
-        onAddressChange,
-        onAddressResults
+        meta,
+        disabled,
+        hidden,
+        onAddressChange
       } = props,
       [_composite, setComposite] = useState(""),
       [_line1, setLine1] = useState(""),
@@ -99,11 +105,9 @@ const sbRef = React.createRef(),
             line1,
             line2,
             line3,
-            postOfficeBox,
             city,
             stateOrProvince,
             postalCode,
-            county,
             country
           )
       );
@@ -134,12 +138,15 @@ const sbRef = React.createRef(),
       longtitude
     ]);
 
+    if (hidden) return <Fabric />;
+
     return (
       <Fabric>
         <Stack tokens={{ childrenGap: 8 }} horizontal verticalAlign="end">
           <div ref={sbRef}>
             <SearchBox
               placeholder="Enter Address"
+              disabled={disabled}
               value={_composite}
               onSearch={async val => {
                 const res = await getSuggestions(
@@ -155,7 +162,6 @@ const sbRef = React.createRef(),
                   ).map(r => r.address);
 
                 setSuggestions(suggestions);
-                onAddressResults && onAddressResults(suggestions);
               }}
               onChange={async (ev, val) => {
                 setComposite(val);
@@ -257,31 +263,68 @@ const sbRef = React.createRef(),
           >
             <TextField
               underlined
-              label="Line1"
+              label={get(meta, "line1.DisplayName", "Line 1")}
+              disabled={disabled}
               value={_line1}
               onChange={(evt, val) => {
                 setLine1(val);
+                setComposite(
+                  composeAddress(
+                    val,
+                    _line2,
+                    _line3,
+                    _city,
+                    _stateOrProvince,
+                    _postalCode,
+                    _country
+                  )
+                );
               }}
             />
             <TextField
               underlined
-              label="Line2"
+              label={get(meta, "line2.DisplayName", "Line 2")}
+              disabled={disabled}
               value={_line2}
               onChange={(evt, val) => {
                 setLine2(val);
+                setComposite(
+                  composeAddress(
+                    _line1,
+                    val,
+                    _line3,
+                    _city,
+                    _stateOrProvince,
+                    _postalCode,
+                    _country
+                  )
+                );
               }}
             />
             <TextField
               underlined
-              label="Line3"
+              label={get(meta, "line3.DisplayName", "Line 3")}
+              disabled={disabled}
               value={_line3}
               onChange={(evt, val) => {
                 setLine3(val);
+                setComposite(
+                  composeAddress(
+                    _line1,
+                    _line2,
+                    val,
+                    _city,
+                    _stateOrProvince,
+                    _postalCode,
+                    _country
+                  )
+                );
               }}
             />
             <TextField
               underlined
-              label="Post Office Box"
+              label={get(meta, "postOfficeBox.DisplayName", "Post Office Box")}
+              disabled={disabled}
               value={_postOfficeBox}
               onChange={(evt, val) => {
                 setPostOfficeBox(val);
@@ -289,31 +332,72 @@ const sbRef = React.createRef(),
             />
             <TextField
               underlined
-              label="City"
+              label={get(meta, "city.DisplayName", "City")}
+              disabled={disabled}
               value={_city}
               onChange={(evt, val) => {
                 setCity(val);
+                setComposite(
+                  composeAddress(
+                    _line1,
+                    _line2,
+                    _line3,
+                    val,
+                    _stateOrProvince,
+                    _postalCode,
+                    _country
+                  )
+                );
               }}
             />
             <TextField
               underlined
-              label="State Or Province"
+              label={get(
+                meta,
+                "stateOrProvince.DisplayName",
+                "State Or Province"
+              )}
+              disabled={disabled}
               value={_stateOrProvince}
               onChange={(evt, val) => {
                 setStateOrProvince(val);
+                setComposite(
+                  composeAddress(
+                    _line1,
+                    _line2,
+                    _line3,
+                    _city,
+                    val,
+                    _postalCode,
+                    _country
+                  )
+                );
               }}
             />
             <TextField
               underlined
-              label="Postal Code"
+              label={get(meta, "postalCode.DisplayName", "Postal Code")}
+              disabled={disabled}
               value={_postalCode}
               onChange={(evt, val) => {
                 setPostalCode(val);
+                setComposite(
+                  composeAddress(
+                    _line1,
+                    _line2,
+                    _line3,
+                    _city,
+                    _stateOrProvince,
+                    val,
+                    _country
+                  )
+                );
               }}
             />
             <TextField
               underlined
-              label="County"
+              label={get(meta, "county.DisplayName", "County")}
+              disabled={disabled}
               value={_county}
               onChange={(evt, val) => {
                 setCounty(val);
@@ -321,15 +405,28 @@ const sbRef = React.createRef(),
             />
             <TextField
               underlined
-              label="Country"
+              label={get(meta, "country.DisplayName", "Country")}
+              disabled={disabled}
               value={_country}
               onChange={(evt, val) => {
                 setCountry(val);
+                setComposite(
+                  composeAddress(
+                    _line1,
+                    _line2,
+                    _line3,
+                    _city,
+                    _stateOrProvince,
+                    _postalCode,
+                    val
+                  )
+                );
               }}
             />
             <TextField
               underlined
-              label="Latitude"
+              label={get(meta, "latitude.DisplayName", "Latitude")}
+              disabled={disabled}
               value={_latitude}
               onChange={(evt, val) => {
                 setLatitude(val);
@@ -337,7 +434,8 @@ const sbRef = React.createRef(),
             />
             <TextField
               underlined
-              label="Longtitude"
+              label={get(meta, "longtitude.DisplayName", "Longtitude")}
+              disabled={disabled}
               value={_longtitude}
               onChange={(evt, val) => {
                 setLongtitude(val);

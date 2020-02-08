@@ -6,36 +6,28 @@
  * @param {string} line1
  * @param {string} line2
  * @param {string} line3
- * @param {string} postOfficeBox
  * @param {string} city
  * @param {string} stateOrProvince
  * @param {string} postalCode
- * @param {string} county
  * @param {string} country
+ * @link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/composite-attributes
  */
 export function composeAddress(
   line1,
   line2,
   line3,
-  postOfficeBox,
   city,
   stateOrProvince,
   postalCode,
-  county,
   country
 ) {
   const lines = `${line1 || ""} ${line2 || ""} ${line3 || ""}`.trim(),
     address = `${lines} ${city || ""}, ${stateOrProvince || ""} ${postalCode ||
-      ""}`.trim();
+      ""} ${country || ""}`.trim();
 
   if (address === ",") return "";
+  if (address.startsWith(",")) return address.substring(1);
+  if (address.endsWith(",")) return address.slice(0, -1);
 
   return address;
 }
-
-/**
- * @module address/getAddresses
- * @param {string} address
- * @return {[]} results
- */
-export function getAddresses(address) {}

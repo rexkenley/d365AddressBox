@@ -10,6 +10,8 @@ import AddressBox from "../src/jsx/addressBox";
 
 storiesOf("AddressBox", module)
   .add("Initial", () => <AddressBox />)
+  .add("with props hidden", () => <AddressBox hidden />)
+  .add("with props disabled", () => <AddressBox disabled />)
   .add("with props composite", () => (
     <AddressBox composite="123 Somewhere St Some City, Some State 11111" />
   ))
@@ -45,17 +47,10 @@ storiesOf("AddressBox", module)
   .add("with props onAddressChange", () => (
     <AddressBox onAddressChange={action("onAddressChange")} />
   ))
-  .add("with props onAddressResults", () => (
-    <AddressBox onAddressResults={action("onAddressResults")} />
-  ))
-  .add(
-    "with props bingMapUrl, bingMapKey, maxResults and onAddressResults",
-    () => (
-      <AddressBox
-        bingMapsUrl={bingMapsUrl}
-        bingMapsKey={bingMapsKey}
-        maxResults={maxResults}
-        onAddressResults={action("onAddressResults")}
-      />
-    )
-  );
+  .add("with props bingMapUrl, bingMapKey, maxResults", () => (
+    <AddressBox
+      bingMapsUrl={bingMapsUrl}
+      bingMapsKey={bingMapsKey}
+      maxResults={maxResults}
+    />
+  ));
