@@ -57,12 +57,15 @@ initializeIcons();
  */
 const sbRef = React.createRef(),
   columns = [
-    { key: "address", name: "Address", fieldName: "formattedAddress" }
+    {
+      key: "address",
+      name: "Address",
+      fieldName: "formattedAddress"
+    }
   ],
   calloutWidth = 350,
   AddressBox = props => {
     const {
-        context,
         bingMapsUrl,
         bingMapsKey,
         maxResults,
@@ -155,17 +158,48 @@ const sbRef = React.createRef(),
                     maxResults,
                     val
                   ),
-                  suggestions = get(
+                  suggestedDetails = get(
                     res,
                     "resourceSets[0].resources[0].value",
                     []
-                  ).map(r => r.address);
+                  ).map(r => {
+                    const {
+                      addressLine,
+                      locality,
+                      adminDistrict,
+                      postalCode,
+                      countryRegion
+                    } = r.address;
 
-                setSuggestions(suggestions);
+                    return getAddresses(
+                      bingMapsUrl,
+                      bingMapsKey,
+                      maxResults,
+                      addressLine,
+                      locality,
+                      adminDistrict,
+                      postalCode,
+                      countryRegion
+                    );
+                  }),
+                  res2 = await Promise.all(suggestedDetails),
+                  addresses = res2.map(r => {
+                    const resource = get(r, "resourceSets[0].resources[0]", []),
+                      {
+                        address,
+                        point: { coordinates }
+                      } = resource;
+                    return {
+                      ...address,
+                      latitude: coordinates[0],
+                      longtitude: coordinates[1]
+                    };
+                  });
+
+                setSuggestions(addresses);
               }}
               onChange={async (ev, val) => {
                 setComposite(val);
-                onAddressChange && onAddressChange(val);
               }}
               onClear={() => {
                 setComposite("");
@@ -208,38 +242,43 @@ const sbRef = React.createRef(),
               selectionMode={SelectionMode.single}
               onItemInvoked={async item => {
                 const {
-                    addressLine,
-                    locality,
-                    adminDistrict,
-                    postalCode,
-                    countryRegion
-                  } = item,
-                  res = await getAddresses(
-                    bingMapsUrl,
-                    bingMapsKey,
-                    maxResults,
-                    addressLine,
-                    locality,
-                    adminDistrict,
-                    postalCode,
-                    countryRegion
-                  ),
-                  addresses = get(res, "resourceSets[0].resources[0]", []),
-                  {
-                    address,
-                    point: { coordinates }
-                  } = addresses;
+                  formattedAddress,
+                  addressLine,
+                  locality,
+                  adminDistrict,
+                  postalCode,
+                  adminDistrict2,
+                  countryRegion,
+                  latitude,
+                  longtitude
+                } = item;
 
-                setComposite(address.formattedAddress);
-                setLine1(address.addressLine);
-                setCity(address.locality);
-                setStateOrProvince(address.adminDistrict);
-                setPostalCode(address.postalCode);
-                setCounty(address.adminDistrict2);
-                setCountry(address.countryRegion);
-                setLatitude(coordinates[0]);
-                setLongtitude(coordinates[1]);
+                setComposite(formattedAddress);
+                setLine1(addressLine);
+                setCity(locality);
+                setStateOrProvince(adminDistrict);
+                setPostalCode(postalCode);
+                setCounty(adminDistrict2);
+                setCountry(countryRegion);
+                setLatitude(latitude);
+                setLongtitude(longtitude);
                 setSuggestions([]);
+
+                onAddressChange &&
+                  onAddressChange(
+                    formattedAddress,
+                    addressLine,
+                    "",
+                    "",
+                    "",
+                    locality,
+                    adminDistrict,
+                    postalCode,
+                    adminDistrict2,
+                    countryRegion,
+                    latitude,
+                    longtitude
+                  );
               }}
             />
             <PrimaryButton
@@ -279,6 +318,30 @@ const sbRef = React.createRef(),
                     _country
                   )
                 );
+
+                onAddressChange &&
+                  onAddressChange(
+                    composeAddress(
+                      val,
+                      _line2,
+                      _line3,
+                      _city,
+                      _stateOrProvince,
+                      _postalCode,
+                      _country
+                    ),
+                    val,
+                    _line2,
+                    _line3,
+                    _postOfficeBox,
+                    _city,
+                    _stateOrProvince,
+                    _postalCode,
+                    _county,
+                    _country,
+                    _latitude,
+                    _longtitude
+                  );
               }}
             />
             <TextField
@@ -299,6 +362,30 @@ const sbRef = React.createRef(),
                     _country
                   )
                 );
+
+                onAddressChange &&
+                  onAddressChange(
+                    composeAddress(
+                      _line1,
+                      val,
+                      _line3,
+                      _city,
+                      _stateOrProvince,
+                      _postalCode,
+                      _country
+                    ),
+                    _line1,
+                    val,
+                    _line3,
+                    _postOfficeBox,
+                    _city,
+                    _stateOrProvince,
+                    _postalCode,
+                    _county,
+                    _country,
+                    _latitude,
+                    _longtitude
+                  );
               }}
             />
             <TextField
@@ -319,6 +406,30 @@ const sbRef = React.createRef(),
                     _country
                   )
                 );
+
+                onAddressChange &&
+                  onAddressChange(
+                    composeAddress(
+                      _line1,
+                      _line2,
+                      val,
+                      _city,
+                      _stateOrProvince,
+                      _postalCode,
+                      _country
+                    ),
+                    _line1,
+                    _line2,
+                    val,
+                    _postOfficeBox,
+                    _city,
+                    _stateOrProvince,
+                    _postalCode,
+                    _county,
+                    _country,
+                    _latitude,
+                    _longtitude
+                  );
               }}
             />
             <TextField
@@ -328,6 +439,22 @@ const sbRef = React.createRef(),
               value={_postOfficeBox}
               onChange={(evt, val) => {
                 setPostOfficeBox(val);
+
+                onAddressChange &&
+                  onAddressChange(
+                    _compose,
+                    _line1,
+                    _line2,
+                    _line3,
+                    val,
+                    _city,
+                    _stateOrProvince,
+                    _postalCode,
+                    _county,
+                    _country,
+                    _latitude,
+                    _longtitude
+                  );
               }}
             />
             <TextField
@@ -348,6 +475,30 @@ const sbRef = React.createRef(),
                     _country
                   )
                 );
+
+                onAddressChange &&
+                  onAddressChange(
+                    composeAddress(
+                      _line1,
+                      _line2,
+                      _line3,
+                      val,
+                      _stateOrProvince,
+                      _postalCode,
+                      _country
+                    ),
+                    _line1,
+                    _line2,
+                    _line3,
+                    _postOfficeBox,
+                    val,
+                    _stateOrProvince,
+                    _postalCode,
+                    _county,
+                    _country,
+                    _latitude,
+                    _longtitude
+                  );
               }}
             />
             <TextField
@@ -372,6 +523,30 @@ const sbRef = React.createRef(),
                     _country
                   )
                 );
+
+                onAddressChange &&
+                  onAddressChange(
+                    composeAddress(
+                      _line1,
+                      _line2,
+                      _line3,
+                      _city,
+                      val,
+                      _postalCode,
+                      _country
+                    ),
+                    _line1,
+                    _line2,
+                    _line3,
+                    _postOfficeBox,
+                    _city,
+                    val,
+                    _postalCode,
+                    _county,
+                    _country,
+                    _latitude,
+                    _longtitude
+                  );
               }}
             />
             <TextField
@@ -392,6 +567,30 @@ const sbRef = React.createRef(),
                     _country
                   )
                 );
+
+                onAddressChange &&
+                  onAddressChange(
+                    composeAddress(
+                      _line1,
+                      _line2,
+                      _line3,
+                      _city,
+                      _stateOrProvince,
+                      val,
+                      _country
+                    ),
+                    _line1,
+                    _line2,
+                    _line3,
+                    _postOfficeBox,
+                    _city,
+                    _stateOrProvince,
+                    val,
+                    _county,
+                    _country,
+                    _latitude,
+                    _longtitude
+                  );
               }}
             />
             <TextField
@@ -401,6 +600,21 @@ const sbRef = React.createRef(),
               value={_county}
               onChange={(evt, val) => {
                 setCounty(val);
+
+                onAddressChange &&
+                  onAddressChange(
+                    _compose,
+                    _line2,
+                    _line3,
+                    _postOfficeBox,
+                    _city,
+                    _stateOrProvince,
+                    _postalCode,
+                    _county,
+                    _country,
+                    _latitude,
+                    _longtitude
+                  );
               }}
             />
             <TextField
@@ -421,6 +635,30 @@ const sbRef = React.createRef(),
                     val
                   )
                 );
+
+                onAddressChange &&
+                  onAddressChange(
+                    composeAddress(
+                      _line1,
+                      _line2,
+                      _line3,
+                      _city,
+                      _stateOrProvince,
+                      _postalCode,
+                      val
+                    ),
+                    _line1,
+                    _line2,
+                    _line3,
+                    _postOfficeBox,
+                    _city,
+                    _stateOrProvince,
+                    _postalCode,
+                    _county,
+                    val,
+                    _latitude,
+                    _longtitude
+                  );
               }}
             />
             <TextField
@@ -430,6 +668,22 @@ const sbRef = React.createRef(),
               value={_latitude}
               onChange={(evt, val) => {
                 setLatitude(val);
+
+                onAddressChange &&
+                  onAddressChange(
+                    _compose,
+                    _line1,
+                    _line2,
+                    _line3,
+                    _postOfficeBox,
+                    _city,
+                    _stateOrProvince,
+                    _postalCode,
+                    _county,
+                    _country,
+                    val,
+                    _longtitude
+                  );
               }}
             />
             <TextField
@@ -439,6 +693,22 @@ const sbRef = React.createRef(),
               value={_longtitude}
               onChange={(evt, val) => {
                 setLongtitude(val);
+
+                onAddressChange &&
+                  onAddressChange(
+                    _compose,
+                    _line1,
+                    _line2,
+                    _line3,
+                    _postOfficeBox,
+                    _city,
+                    _stateOrProvince,
+                    _postalCode,
+                    _county,
+                    _country,
+                    _latitude,
+                    val
+                  );
               }}
             />
             <PrimaryButton

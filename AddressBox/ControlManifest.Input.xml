@@ -2,6 +2,9 @@
 <manifest>
   <control namespace="d365" constructor="AddressBox" version="0.0.1" display-name-key="AddressBox" description-key="AddressBox description" control-type="standard">
     <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
+    <property name="bingMapsUrl" display-name-key="bingMapsUrl" description-key="Bing Maps Url" of-type="SingleLine.Text" usage="input" required="true" />
+    <property name="bingMapsKey" display-name-key="bingMapsKey" description-key="Bing Maps key" of-type="SingleLine.Text" usage="input" required="true" />
+    <property name="maxResults" display-name-key="maxResults" description-key="Bing Maps Max Result Count" of-type="Whole.None" usage="input" required="true" />
     <property name="composite" display-name-key="composite" description-key="Composite Address" of-type="Multiple" usage="bound" required="true" />
     <property name="line1" display-name-key="line1" description-key="Address Line 1" of-type="SingleLine.Text" usage="bound" required="false" />
     <property name="line2" display-name-key="line2" description-key="Address Line 2" of-type="SingleLine.Text" usage="bound" required="false" />
@@ -12,8 +15,8 @@
     <property name="postalCode" display-name-key="postalCode" description-key="Postal Code" of-type="SingleLine.Text" usage="bound" required="false" />
     <property name="county" display-name-key="county" description-key="County" of-type="SingleLine.Text" usage="bound" required="false" />
     <property name="country" display-name-key="country" description-key="Country" of-type="SingleLine.Text" usage="bound" required="false" />
-    <property name="latitude" display-name-key="latitude" description-key="Latitude" of-type="SingleLine.Text" usage="bound" required="false" />
-    <property name="longtitude" display-name-key="longtitude" description-key="Longtitude" of-type="SingleLine.Text" usage="bound" required="false" />
+    <property name="latitude" display-name-key="latitude" description-key="Latitude" of-type="FP" usage="bound" required="false" />
+    <property name="longtitude" display-name-key="longtitude" description-key="Longtitude" of-type="FP" usage="bound" required="false" />
     <!-- 
       Property node's of-type attribute can be of-type-group attribute. 
       Example:

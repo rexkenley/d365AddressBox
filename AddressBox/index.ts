@@ -11,6 +11,9 @@ export class AddressBox
   private updatedByReact: boolean;
   private isControlDisabled: boolean;
   private isVisible: boolean;
+  private bingMapsUrl: string;
+  private bingMapsKey: string;
+  private maxResults: number;
   private composite: string;
   private line1: string;
   private line2: string;
@@ -21,8 +24,8 @@ export class AddressBox
   private postalCode: string;
   private county: string;
   private country: string;
-  private latitude: string;
-  private longtitude: string;
+  private latitude: number;
+  private longtitude: number;
   private meta: object;
 
   /**
@@ -41,6 +44,9 @@ export class AddressBox
   ) {
     const { parameters, mode } = context,
       {
+        bingMapsUrl,
+        bingMapsKey,
+        maxResults,
         composite,
         line1,
         line2,
@@ -61,6 +67,9 @@ export class AddressBox
     this.updatedByReact = false;
     this.isControlDisabled = isControlDisabled;
     this.isVisible = isVisible;
+    this.bingMapsUrl = (bingMapsUrl && bingMapsUrl.raw) || "";
+    this.bingMapsKey = (bingMapsKey && bingMapsKey.raw) || "";
+    this.maxResults = (maxResults && maxResults.raw) || 0;
     this.composite = (composite && composite.raw) || "";
     this.line1 = (line1 && line1.raw) || "";
     this.line2 = (line2 && line2.raw) || "";
@@ -71,8 +80,8 @@ export class AddressBox
     this.postalCode = (postalCode && postalCode.raw) || "";
     this.county = (county && county.raw) || "";
     this.country = (country && country.raw) || "";
-    this.latitude = (latitude && latitude.raw) || "";
-    this.longtitude = (longtitude && longtitude.raw) || "";
+    this.latitude = (latitude && +latitude.raw!) || 0;
+    this.longtitude = (longtitude && +longtitude.raw!) || 0;
     this.meta = {
       line1: line1.attributes,
       line2: line2.attributes,
@@ -87,10 +96,15 @@ export class AddressBox
       longtitude: longtitude.attributes
     };
 
+    longtitude.attributes;
+
     // Add control initialization code
     ReactDOM.render(
       // @ts-ignore
       React.createElement(AddressBox, {
+        bingMapsUrl: this.bingMapsUrl,
+        bingMapsKey: this.bingMapsKey,
+        maxResults: this.maxResults,
         composite: this.composite,
         line1: this.line1,
         line2: this.line2,
@@ -180,14 +194,17 @@ export class AddressBox
     this.postalCode = (postalCode && postalCode.raw) || "";
     this.county = (county && county.raw) || "";
     this.country = (country && country.raw) || "";
-    this.latitude = (latitude && latitude.raw) || "";
-    this.longtitude = (longtitude && longtitude.raw) || "";
+    this.latitude = (latitude && +latitude.raw!) || 0;
+    this.longtitude = (longtitude && +longtitude.raw!) || 0;
     this.isControlDisabled = isControlDisabled;
     this.isVisible = isVisible;
 
     ReactDOM.render(
       // @ts-ignore
       React.createElement(AddressBox, {
+        bingMapsUrl: this.bingMapsUrl,
+        bingMapsKey: this.bingMapsKey,
+        maxResults: this.maxResults,
         composite: this.composite,
         line1: this.line1,
         line2: this.line2,

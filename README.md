@@ -6,6 +6,9 @@ A multi functional address box control powered by BingMaps
 
 - A search box that queries BingMaps for best possible addresses
 - Selected address have detailed latitude and longtitude
+
+**Planned Feature**
+
 - Searches will included existing records with a matching address
 
 **Settings**
