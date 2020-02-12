@@ -28,6 +28,108 @@ export class AddressBox
   private longtitude: number;
   private meta: object;
 
+  syncData(parameters) {
+    const {
+      composite,
+      line1,
+      line2,
+      line3,
+      postOfficeBox,
+      city,
+      stateOrProvince,
+      postalCode,
+      county,
+      country
+      //latitude,
+      //longtitude
+    } = parameters;
+
+    this.composite = (composite && composite.raw) || "";
+    this.line1 = (line1 && line1.raw) || "";
+    this.line2 = (line2 && line2.raw) || "";
+    this.line3 = (line3 && line3.raw) || "";
+    this.postOfficeBox = (postOfficeBox && postOfficeBox.raw) || "";
+    this.city = (city && city.raw) || "";
+    this.stateOrProvince = (stateOrProvince && stateOrProvince.raw) || "";
+    this.postalCode = (postalCode && postalCode.raw) || "";
+    this.county = (county && county.raw) || "";
+    this.country = (country && country.raw) || "";
+    //this.latitude = (latitude && latitude.raw) || 0;
+    //this.longtitude = (longtitude && longtitude.raw) || 0;
+  }
+
+  addressChange(
+    composite,
+    line1,
+    line2,
+    line3,
+    postOfficeBox,
+    city,
+    stateOrProvince,
+    postalCode,
+    county,
+    country
+    //latitude,
+    //longtitude
+  ) {
+    this.composite = composite;
+    this.line1 = line1;
+    this.line2 = line2;
+    this.line3 = line3;
+    this.postOfficeBox = postOfficeBox;
+    this.city = city;
+    this.stateOrProvince = stateOrProvince;
+    this.postalCode = postalCode;
+    this.county = county;
+    this.country = country;
+    //this.latitude = latitude;
+    //this.longtitude = longtitude;
+    this.updatedByReact = true;
+    this.notifyOutputChanged();
+  }
+
+  equivalent(parameters) {
+    const {
+      composite,
+      line1,
+      line2,
+      line3,
+      postOfficeBox,
+      city,
+      stateOrProvince,
+      postalCode,
+      county,
+      country
+      //latitude,
+      //longtitude
+    } = parameters;
+
+    return (
+      composite &&
+      composite.raw === this.composite &&
+      line1 &&
+      line1.raw === this.line1 &&
+      line2 &&
+      line2.raw === this.line2 &&
+      line3 &&
+      line3.raw === this.line3 &&
+      postOfficeBox &&
+      postOfficeBox.raw === this.postOfficeBox &&
+      city &&
+      city.raw === this.city &&
+      stateOrProvince &&
+      stateOrProvince.raw === this.stateOrProvince &&
+      postalCode &&
+      postalCode.raw === this.postalCode &&
+      county &&
+      county.raw === this.county &&
+      country &&
+      country.raw === this.country
+      //latitude && latitude.raw === this.latitude
+      //longtitude && longtitude.raw === this.longtitude
+    );
+  }
+
   /**
    * Used to initialize the control instance. Controls can kick off remote server calls and other initialization actions here.
    * Data-set values are not initialized here, use updateView.
@@ -47,7 +149,6 @@ export class AddressBox
         bingMapsUrl,
         bingMapsKey,
         maxResults,
-        composite,
         line1,
         line2,
         line3,
@@ -56,9 +157,9 @@ export class AddressBox
         stateOrProvince,
         postalCode,
         county,
-        country,
-        latitude,
-        longtitude
+        country
+        //latitude,
+        //longtitude
       } = parameters,
       { isControlDisabled, isVisible } = mode;
 
@@ -70,18 +171,8 @@ export class AddressBox
     this.bingMapsUrl = (bingMapsUrl && bingMapsUrl.raw) || "";
     this.bingMapsKey = (bingMapsKey && bingMapsKey.raw) || "";
     this.maxResults = (maxResults && maxResults.raw) || 0;
-    this.composite = (composite && composite.raw) || "";
-    this.line1 = (line1 && line1.raw) || "";
-    this.line2 = (line2 && line2.raw) || "";
-    this.line3 = (line3 && line3.raw) || "";
-    this.postOfficeBox = (postOfficeBox && postOfficeBox.raw) || "";
-    this.city = (city && city.raw) || "";
-    this.stateOrProvince = (stateOrProvince && stateOrProvince.raw) || "";
-    this.postalCode = (postalCode && postalCode.raw) || "";
-    this.county = (county && county.raw) || "";
-    this.country = (country && country.raw) || "";
-    this.latitude = (latitude && +latitude.raw!) || 0;
-    this.longtitude = (longtitude && +longtitude.raw!) || 0;
+    this.syncData(parameters);
+
     this.meta = {
       line1: line1.attributes,
       line2: line2.attributes,
@@ -91,12 +182,10 @@ export class AddressBox
       stateOrProvince: stateOrProvince.attributes,
       postalCode: postalCode.attributes,
       county: county.attributes,
-      country: country.attributes,
-      latitude: latitude.attributes,
-      longtitude: longtitude.attributes
+      country: country.attributes
+      //latitude: latitude.attributes,
+      //longtitude: longtitude.attributes
     };
-
-    longtitude.attributes;
 
     // Add control initialization code
     ReactDOM.render(
@@ -115,40 +204,12 @@ export class AddressBox
         postalCode: this.postalCode,
         county: this.county,
         country: this.country,
-        latitude: this.latitude,
-        longtitude: this.longtitude,
+        //latitude: this.latitude,
+        //longtitude: this.longtitude,
         meta: this.meta,
         disabled: this.isControlDisabled,
         hidden: !this.isVisible,
-        onAddressChange: (
-          composite,
-          line1,
-          line2,
-          line3,
-          postOfficeBox,
-          city,
-          stateOrProvince,
-          postalCode,
-          county,
-          country,
-          latitude,
-          longtitude
-        ) => {
-          this.composite = composite;
-          this.line1 = line1;
-          this.line2 = line2;
-          this.line3 = line3;
-          this.postOfficeBox = postOfficeBox;
-          this.city = city;
-          this.stateOrProvince = stateOrProvince;
-          this.postalCode = postalCode;
-          this.county = county;
-          this.country = country;
-          this.latitude = latitude;
-          this.longtitude = longtitude;
-          this.updatedByReact = true;
-          this.notifyOutputChanged();
-        }
+        onAddressChange: this.addressChange.bind(this)
       }),
       this.container
     );
@@ -161,43 +222,17 @@ export class AddressBox
   public updateView(context: ComponentFramework.Context<IInputs>): void {
     // Add code to update control view
     const { parameters, mode } = context,
-      {
-        composite,
-        line1,
-        line2,
-        line3,
-        postOfficeBox,
-        city,
-        stateOrProvince,
-        postalCode,
-        county,
-        country,
-        latitude,
-        longtitude
-      } = parameters,
-      { isControlDisabled, isVisible } = mode,
-      equivalent = true;
+      { isControlDisabled, isVisible } = mode;
 
     if (this.updatedByReact) {
-      if (equivalent) this.updatedByReact = false;
+      if (this.equivalent(parameters)) this.updatedByReact = false;
 
       return;
-    }
+    } else if (this.equivalent(parameters)) return;
 
-    this.composite = (composite && composite.raw) || "";
-    this.line1 = (line1 && line1.raw) || "";
-    this.line2 = (line2 && line2.raw) || "";
-    this.line3 = (line3 && line3.raw) || "";
-    this.postOfficeBox = (postOfficeBox && postOfficeBox.raw) || "";
-    this.city = (city && city.raw) || "";
-    this.stateOrProvince = (stateOrProvince && stateOrProvince.raw) || "";
-    this.postalCode = (postalCode && postalCode.raw) || "";
-    this.county = (county && county.raw) || "";
-    this.country = (country && country.raw) || "";
-    this.latitude = (latitude && +latitude.raw!) || 0;
-    this.longtitude = (longtitude && +longtitude.raw!) || 0;
     this.isControlDisabled = isControlDisabled;
     this.isVisible = isVisible;
+    this.syncData(parameters);
 
     ReactDOM.render(
       // @ts-ignore
@@ -215,40 +250,12 @@ export class AddressBox
         postalCode: this.postalCode,
         county: this.county,
         country: this.country,
-        latitude: this.latitude,
-        longtitude: this.longtitude,
+        //latitude: this.latitude,
+        //longtitude: this.longtitude,
         meta: this.meta,
         disabled: this.isControlDisabled,
         hidden: !this.isVisible,
-        onAddressChange: (
-          composite,
-          line1,
-          line2,
-          line3,
-          postOfficeBox,
-          city,
-          stateOrProvince,
-          postalCode,
-          county,
-          country,
-          latitude,
-          longtitude
-        ) => {
-          this.composite = composite;
-          this.line1 = line1;
-          this.line2 = line2;
-          this.line3 = line3;
-          this.postOfficeBox = postOfficeBox;
-          this.city = city;
-          this.stateOrProvince = stateOrProvince;
-          this.postalCode = postalCode;
-          this.county = county;
-          this.country = country;
-          this.latitude = latitude;
-          this.longtitude = longtitude;
-          this.updatedByReact = true;
-          this.notifyOutputChanged();
-        }
+        onAddressChange: this.addressChange.bind(this)
       }),
       this.container
     );
@@ -269,9 +276,11 @@ export class AddressBox
       stateOrProvince: this.stateOrProvince,
       postalCode: this.postalCode,
       county: this.county,
-      country: this.country,
-      latitude: this.latitude,
-      longtitude: this.longtitude
+      country: this.country
+      // @ts-ignore
+      //latitude: this.latitude.toString(),
+      // @ts-ignore
+      //longtitude: this.longtitude.toString()
     };
   }
 
