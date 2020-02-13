@@ -661,6 +661,7 @@ const sbRef = React.createRef(),
                   );
               }}
             />
+            {/** 
             <TextField
               underlined
               label={get(meta, "latitude.DisplayName", "Latitude")}
@@ -710,7 +711,8 @@ const sbRef = React.createRef(),
                     val
                   );
               }}
-            />
+            />             
+            */}
             <PrimaryButton
               text="Close"
               onClick={() => {

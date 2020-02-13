@@ -10,9 +10,13 @@ A multi functional address box control powered by BingMaps
 **Planned Feature**
 
 - Searches will included existing records with a matching address
+- latitude/longtitude
 
 **Settings**
 
+- bingMapsUrl - http://dev.virtualearth.net/REST/version [Base URL Structure](https://docs.microsoft.com/en-us/bingmaps/rest-services/common-parameters-and-types/base-url-structure)
+- bingMapsKey - You need to acquire a key to use this control [Getting a Bing Maps Key](https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key)
+- maxResults - Maximum number of matching results
 - composite
 - line1
 - line2
@@ -23,8 +27,6 @@ A multi functional address box control powered by BingMaps
 - postalCode
 - county
 - country
-- latitude
-- longtitude
 
 **Testing and Review**
 

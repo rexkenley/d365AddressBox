@@ -39,9 +39,9 @@ export class AddressBox
       stateOrProvince,
       postalCode,
       county,
-      country
-      //latitude,
-      //longtitude
+      country,
+      latitude,
+      longtitude
     } = parameters;
 
     this.composite = (composite && composite.raw) || "";
@@ -68,9 +68,9 @@ export class AddressBox
     stateOrProvince,
     postalCode,
     county,
-    country
-    //latitude,
-    //longtitude
+    country,
+    latitude,
+    longtitude
   ) {
     this.composite = composite;
     this.line1 = line1;
@@ -99,9 +99,9 @@ export class AddressBox
       stateOrProvince,
       postalCode,
       county,
-      country
-      //latitude,
-      //longtitude
+      country,
+      latitude,
+      longtitude
     } = parameters;
 
     return (
@@ -125,7 +125,7 @@ export class AddressBox
       county.raw === this.county &&
       country &&
       country.raw === this.country
-      //latitude && latitude.raw === this.latitude
+      //latitude && latitude.raw === this.latitude &&
       //longtitude && longtitude.raw === this.longtitude
     );
   }
@@ -204,8 +204,8 @@ export class AddressBox
         postalCode: this.postalCode,
         county: this.county,
         country: this.country,
-        //latitude: this.latitude,
-        //longtitude: this.longtitude,
+        latitude: this.latitude,
+        longtitude: this.longtitude,
         meta: this.meta,
         disabled: this.isControlDisabled,
         hidden: !this.isVisible,
@@ -228,11 +228,16 @@ export class AddressBox
       if (this.equivalent(parameters)) this.updatedByReact = false;
 
       return;
-    } else if (this.equivalent(parameters)) return;
+    } else if (
+      this.equivalent(parameters) &&
+      this.isControlDisabled === isControlDisabled &&
+      this.isVisible === isVisible
+    )
+      return;
 
+    this.syncData(parameters);
     this.isControlDisabled = isControlDisabled;
     this.isVisible = isVisible;
-    this.syncData(parameters);
 
     ReactDOM.render(
       // @ts-ignore
@@ -250,8 +255,8 @@ export class AddressBox
         postalCode: this.postalCode,
         county: this.county,
         country: this.country,
-        //latitude: this.latitude,
-        //longtitude: this.longtitude,
+        latitude: this.latitude,
+        longtitude: this.longtitude,
         meta: this.meta,
         disabled: this.isControlDisabled,
         hidden: !this.isVisible,
@@ -277,10 +282,8 @@ export class AddressBox
       postalCode: this.postalCode,
       county: this.county,
       country: this.country
-      // @ts-ignore
-      //latitude: this.latitude.toString(),
-      // @ts-ignore
-      //longtitude: this.longtitude.toString()
+      //latitude: this.latitude,
+      //longtitude: this.longtitude
     };
   }
 
