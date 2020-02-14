@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
   <control namespace="d365" constructor="AddressBox" version="0.0.1" display-name-key="AddressBox" description-key="AddressBox description" control-type="standard">
-    <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
     <property name="bingMapsUrl" display-name-key="bingMapsUrl" description-key="Bing Maps Url" of-type="SingleLine.Text" usage="input" required="true" />
     <property name="bingMapsKey" display-name-key="bingMapsKey" description-key="Bing Maps key" of-type="SingleLine.Text" usage="input" required="true" />
     <property name="maxResults" display-name-key="maxResults" description-key="Bing Maps Max Result Count" of-type="Whole.None" usage="input" required="true" />
-    <property name="composite" display-name-key="composite" description-key="Composite Address" of-type="Multiple" usage="bound" required="true" />
     <property name="line1" display-name-key="line1" description-key="Address Line 1" of-type="SingleLine.Text" usage="bound" required="false" />
     <property name="line2" display-name-key="line2" description-key="Address Line 2" of-type="SingleLine.Text" usage="bound" required="false" />
     <property name="line3" display-name-key="line3" description-key="Address Line 3" of-type="SingleLine.Text" usage="bound" required="false" />
@@ -16,37 +14,12 @@
     <property name="county" display-name-key="county" description-key="County" of-type="SingleLine.Text" usage="bound" required="false" />
     <property name="country" display-name-key="country" description-key="Country" of-type="SingleLine.Text" usage="bound" required="false" />
     <!-- 
+    <property name="composite" display-name-key="composite" description-key="Composite Address" of-type="Multiple" usage="bound" required="true" />
     <property name="latitude" display-name-key="latitude" description-key="Latitude" of-type="FP" usage="bound" required="false" />
     <property name="longtitude" display-name-key="longtitude" description-key="Longtitude" of-type="FP" usage="bound" required="false" />
-    
-      Property node's of-type attribute can be of-type-group attribute. 
-      Example:
-      <type-group name="numbers">
-        <type>Whole.None</type>
-        <type>Currency</type>
-        <type>FP</type>
-        <type>Decimal</type>
-      </type-group>
-      <property name="sampleProperty" display-name-key="Property_Display_Key" description-key="Property_Desc_Key" of-type-group="numbers" usage="bound" required="true" />
     -->
     <resources>
       <code path="index.ts" order="1"/>
-      <!-- UNCOMMENT TO ADD MORE RESOURCES
-      <css path="css/AddressBox.css" order="1" />
-      <resx path="strings/AddressBox.1033.resx" version="1.0.0" />
-      -->
     </resources>
-    <!-- UNCOMMENT TO ENABLE THE SPECIFIED API
-    <feature-usage>
-      <uses-feature name="Device.captureAudio" required="true" />
-      <uses-feature name="Device.captureImage" required="true" />
-      <uses-feature name="Device.captureVideo" required="true" />
-      <uses-feature name="Device.getBarcodeValue" required="true" />
-      <uses-feature name="Device.getCurrentPosition" required="true" />
-      <uses-feature name="Device.pickFile" required="true" />
-      <uses-feature name="Utility" required="true" />
-      <uses-feature name="WebAPI" required="true" />
-    </feature-usage>
-    -->
   </control>
 </manifest>

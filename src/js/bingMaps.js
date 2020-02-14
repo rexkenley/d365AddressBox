@@ -24,16 +24,20 @@ export const getAddresses = async (
   postalCode,
   country
 ) => {
-  let url = `${bingMapsUrl}Locations?key=${bingMapsKey}&maxResults=${maxResults}`;
+  try {
+    let url = `${bingMapsUrl}Locations?key=${bingMapsKey}&maxResults=${maxResults}`;
 
-  if (addressLine) url += `&addressLine=${addressLine}`;
-  if (city) url += `&locality=${city}`;
-  if (stateOrProvince) url += `&adminDistrict=${stateOrProvince}`;
-  if (postalCode) url += `&postalCode=${postalCode}`;
-  if (country) url += `&countryRegion=${country}`;
+    if (addressLine) url += `&addressLine=${addressLine}`;
+    if (city) url += `&locality=${city}`;
+    if (stateOrProvince) url += `&adminDistrict=${stateOrProvince}`;
+    if (postalCode) url += `&postalCode=${postalCode}`;
+    if (country) url += `&countryRegion=${country}`;
 
-  const res = await fetch(url);
-  return res.json();
+    const res = await fetch(url);
+    return res.json();
+  } catch (ex) {
+    console.error(ex);
+  }
 };
 
 /**
@@ -56,12 +60,16 @@ export const getSuggestions = async (
   country = "US",
   culture = "en-US"
 ) => {
-  let url = `${bingMapsUrl}Autosuggest?key=${bingMapsKey}&maxResults=${maxResults}`;
+  try {
+    let url = `${bingMapsUrl}Autosuggest?key=${bingMapsKey}&maxResults=${maxResults}`;
 
-  if (query) url += `&query=${query}`;
-  if (culture) url += `&culture=${culture}`;
-  if (country) url += `&userRegion=${country}&countryFilter=${country}`;
+    if (query) url += `&query=${query}`;
+    if (culture) url += `&culture=${culture}`;
+    if (country) url += `&userRegion=${country}&countryFilter=${country}`;
 
-  const res = await fetch(url);
-  return res.json();
+    const res = await fetch(url);
+    return res.json();
+  } catch (ex) {
+    console.error(ex);
+  }
 };

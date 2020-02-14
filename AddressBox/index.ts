@@ -44,7 +44,7 @@ export class AddressBox
       longtitude
     } = parameters;
 
-    this.composite = (composite && composite.raw) || "";
+    //this.composite = (composite && composite.raw) || "";
     this.line1 = (line1 && line1.raw) || "";
     this.line2 = (line2 && line2.raw) || "";
     this.line3 = (line3 && line3.raw) || "";
@@ -72,7 +72,7 @@ export class AddressBox
     latitude,
     longtitude
   ) {
-    this.composite = composite;
+    //this.composite = composite;
     this.line1 = line1;
     this.line2 = line2;
     this.line3 = line3;
@@ -105,8 +105,7 @@ export class AddressBox
     } = parameters;
 
     return (
-      composite &&
-      composite.raw === this.composite &&
+      //composite && composite.raw === this.composite &&
       line1 &&
       line1.raw === this.line1 &&
       line2 &&
@@ -149,6 +148,7 @@ export class AddressBox
         bingMapsUrl,
         bingMapsKey,
         maxResults,
+        //composite,
         line1,
         line2,
         line3,
@@ -174,6 +174,7 @@ export class AddressBox
     this.syncData(parameters);
 
     this.meta = {
+      //composite: composite.attributes,
       line1: line1.attributes,
       line2: line2.attributes,
       line3: line3.attributes,
@@ -235,9 +236,9 @@ export class AddressBox
     )
       return;
 
-    this.syncData(parameters);
     this.isControlDisabled = isControlDisabled;
     this.isVisible = isVisible;
+    this.syncData(parameters);
 
     ReactDOM.render(
       // @ts-ignore
@@ -272,7 +273,7 @@ export class AddressBox
    */
   public getOutputs(): IOutputs {
     return {
-      composite: this.composite,
+      //composite: this.composite,
       line1: this.line1,
       line2: this.line2,
       line3: this.line3,

@@ -442,7 +442,7 @@ const sbRef = React.createRef(),
 
                 onAddressChange &&
                   onAddressChange(
-                    _compose,
+                    _composite,
                     _line1,
                     _line2,
                     _line3,
@@ -603,7 +603,7 @@ const sbRef = React.createRef(),
 
                 onAddressChange &&
                   onAddressChange(
-                    _compose,
+                    _composite,
                     _line2,
                     _line3,
                     _postOfficeBox,
@@ -672,7 +672,7 @@ const sbRef = React.createRef(),
 
                 onAddressChange &&
                   onAddressChange(
-                    _compose,
+                    _composite,
                     _line1,
                     _line2,
                     _line3,
@@ -697,7 +697,7 @@ const sbRef = React.createRef(),
 
                 onAddressChange &&
                   onAddressChange(
-                    _compose,
+                    _composite,
                     _line1,
                     _line2,
                     _line3,

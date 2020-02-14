@@ -21,13 +21,17 @@ export function composeAddress(
   postalCode,
   country
 ) {
-  const lines = `${line1 || ""} ${line2 || ""} ${line3 || ""}`.trim(),
-    address = `${lines} ${city || ""}, ${stateOrProvince || ""} ${postalCode ||
-      ""} ${country || ""}`.trim();
+  try {
+    const lines = `${line1 || ""} ${line2 || ""} ${line3 || ""}`.trim(),
+      address = `${lines} ${city || ""}, ${stateOrProvince ||
+        ""} ${postalCode || ""} ${country || ""}`.trim();
 
-  if (address === ",") return "";
-  if (address.startsWith(",")) return address.substring(1);
-  if (address.endsWith(",")) return address.slice(0, -1);
+    if (address === ",") return "";
+    if (address.startsWith(",")) return address.substring(1);
+    if (address.endsWith(",")) return address.slice(0, -1);
 
-  return address;
+    return address;
+  } catch (ex) {
+    console.error(ex);
+  }
 }
