@@ -25,6 +25,7 @@ export const getAddresses = async (
   country
 ) => {
   try {
+    if (!bingMapsUrl.endsWith("/")) bingMapsUrl += "/";
     let url = `${bingMapsUrl}Locations?key=${bingMapsKey}&maxResults=${maxResults}`;
 
     if (addressLine) url += `&addressLine=${addressLine}`;
@@ -61,6 +62,7 @@ export const getSuggestions = async (
   culture = "en-US"
 ) => {
   try {
+    if (!bingMapsUrl.endsWith("/")) bingMapsUrl += "/";
     let url = `${bingMapsUrl}Autosuggest?key=${bingMapsKey}&maxResults=${maxResults}`;
 
     if (query) url += `&query=${query}`;
