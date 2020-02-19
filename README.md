@@ -15,7 +15,7 @@ A multi functional address box control powered by BingMaps
 
 **Settings**
 
-- bingMapsUrl - http://dev.virtualearth.net/REST/version. [Bing Maps Base URL Structure](https://docs.microsoft.com/en-us/bingmaps/rest-services/common-parameters-and-types/base-url-structure)
+- bingMapsUrl - https://dev.virtualearth.net/REST/version. [Bing Maps Base URL Structure](https://docs.microsoft.com/en-us/bingmaps/rest-services/common-parameters-and-types/base-url-structure). Use https, you will get an error with http within d365 ce.
 - bingMapsKey - You need to acquire a key to use this control. [Getting a Bing Maps Key](https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key)
 - maxResults - Maximum number of matching results
 - line1
