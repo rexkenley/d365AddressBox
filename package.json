@@ -22,6 +22,7 @@
     "@types/node": "^10.12.18",
     "@types/powerapps-component-framework": "^1.2.0",
     "@uifabric/icons": "^7.3.4",
+    "awesome-debounce-promise": "^2.1.0",
     "lodash": "^4.17.15",
     "office-ui-fabric-react": "^7.88.1",
     "react": "^16.12.0",

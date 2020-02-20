@@ -4,6 +4,7 @@
     <property name="bingMapsUrl" display-name-key="bingMapsUrl" description-key="Bing Maps Url" of-type="SingleLine.Text" usage="input" required="true" />
     <property name="bingMapsKey" display-name-key="bingMapsKey" description-key="Bing Maps key" of-type="SingleLine.Text" usage="input" required="true" />
     <property name="maxResults" display-name-key="maxResults" description-key="Bing Maps Max Result Count" of-type="Whole.None" usage="input" required="true" />
+    <property name="searchOnChange" display-name-key="searchOnChange" description-key="Search on Address Change" of-type="SingleLine.Text" usage="input" required="false" />
     <property name="line1" display-name-key="line1" description-key="Address Line 1" of-type="SingleLine.Text" usage="bound" required="false" />
     <property name="line2" display-name-key="line2" description-key="Address Line 2" of-type="SingleLine.Text" usage="bound" required="false" />
     <property name="line3" display-name-key="line3" description-key="Address Line 3" of-type="SingleLine.Text" usage="bound" required="false" />

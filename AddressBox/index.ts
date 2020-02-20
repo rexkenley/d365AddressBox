@@ -14,6 +14,7 @@ export class AddressBox
   private bingMapsUrl: string;
   private bingMapsKey: string;
   private maxResults: number;
+  private searchOnChange: boolean;
   private composite: string;
   private line1: string;
   private line2: string;
@@ -148,6 +149,7 @@ export class AddressBox
         bingMapsUrl,
         bingMapsKey,
         maxResults,
+        searchOnChange,
         //composite,
         line1,
         line2,
@@ -171,6 +173,8 @@ export class AddressBox
     this.bingMapsUrl = (bingMapsUrl && bingMapsUrl.raw) || "";
     this.bingMapsKey = (bingMapsKey && bingMapsKey.raw) || "";
     this.maxResults = (maxResults && maxResults.raw) || 0;
+    this.searchOnChange =
+      (searchOnChange && searchOnChange.raw === "true") || false;
     this.syncData(parameters);
 
     this.meta = {
@@ -195,6 +199,7 @@ export class AddressBox
         bingMapsUrl: this.bingMapsUrl,
         bingMapsKey: this.bingMapsKey,
         maxResults: this.maxResults,
+        searchOnChange: this.searchOnChange,
         composite: this.composite,
         line1: this.line1,
         line2: this.line2,
@@ -246,6 +251,7 @@ export class AddressBox
         bingMapsUrl: this.bingMapsUrl,
         bingMapsKey: this.bingMapsKey,
         maxResults: this.maxResults,
+        searchOnChange: this.searchOnChange,
         composite: this.composite,
         line1: this.line1,
         line2: this.line2,

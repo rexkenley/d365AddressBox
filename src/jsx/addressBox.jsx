@@ -15,6 +15,7 @@ import { Fabric } from "office-ui-fabric-react/lib/Fabric";
 import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
 import { TextField } from "office-ui-fabric-react/lib/TextField";
 import { initializeIcons } from "@uifabric/icons";
+import AwesomeDebouncePromise from "awesome-debounce-promise";
 
 import { composeAddress } from "../js/address";
 import { getAddresses, getSuggestions } from "../js/bingMaps";
@@ -30,6 +31,7 @@ initializeIcons();
  * @property {string} bingMapsUrl
  * @property {string} bingMapsKey
  * @property {int} maxResults
+ * @property {boolean} searchOnChange
  * @property {string} composite
  * @property {string} line1
  * @property {string} line2
@@ -64,11 +66,65 @@ const sbRef = React.createRef(),
     }
   ],
   calloutWidth = 350,
+  searchAddress = async (bingMapsUrl, bingMapsKey, maxResults, value) => {
+    console.log(value);
+    try {
+      const res = await getSuggestions(
+          bingMapsUrl,
+          bingMapsKey,
+          maxResults,
+          value
+        ),
+        suggestedDetails = get(
+          res,
+          "resourceSets[0].resources[0].value",
+          []
+        ).map(r => {
+          const {
+            addressLine,
+            locality,
+            adminDistrict,
+            postalCode,
+            countryRegion
+          } = r.address;
+
+          return getAddresses(
+            bingMapsUrl,
+            bingMapsKey,
+            maxResults,
+            addressLine,
+            locality,
+            adminDistrict,
+            postalCode,
+            countryRegion
+          );
+        }),
+        res2 = await Promise.all(suggestedDetails),
+        addresses = res2.map(r => {
+          const resource = get(r, "resourceSets[0].resources[0]", []),
+            {
+              address,
+              point: { coordinates }
+            } = resource;
+          return {
+            ...address,
+            latitude: coordinates[0],
+            longtitude: coordinates[1]
+          };
+        });
+
+      return addresses;
+    } catch (ex) {
+      console.error(ex);
+    }
+  },
+  debounceSA = AwesomeDebouncePromise(searchAddress, 300),
   AddressBox = props => {
     const {
         bingMapsUrl,
         bingMapsKey,
         maxResults,
+        searchOnChange,
         composite,
         line1,
         line2,
@@ -152,54 +208,26 @@ const sbRef = React.createRef(),
               disabled={disabled}
               value={_composite}
               onSearch={async val => {
-                const res = await getSuggestions(
-                    bingMapsUrl,
-                    bingMapsKey,
-                    maxResults,
-                    val
-                  ),
-                  suggestedDetails = get(
-                    res,
-                    "resourceSets[0].resources[0].value",
-                    []
-                  ).map(r => {
-                    const {
-                      addressLine,
-                      locality,
-                      adminDistrict,
-                      postalCode,
-                      countryRegion
-                    } = r.address;
-
-                    return getAddresses(
-                      bingMapsUrl,
-                      bingMapsKey,
-                      maxResults,
-                      addressLine,
-                      locality,
-                      adminDistrict,
-                      postalCode,
-                      countryRegion
-                    );
-                  }),
-                  res2 = await Promise.all(suggestedDetails),
-                  addresses = res2.map(r => {
-                    const resource = get(r, "resourceSets[0].resources[0]", []),
-                      {
-                        address,
-                        point: { coordinates }
-                      } = resource;
-                    return {
-                      ...address,
-                      latitude: coordinates[0],
-                      longtitude: coordinates[1]
-                    };
-                  });
-
+                const addresses = await searchAddress(
+                  bingMapsUrl,
+                  bingMapsKey,
+                  maxResults,
+                  val
+                );
                 setSuggestions(addresses);
               }}
               onChange={async (ev, val) => {
                 setComposite(val);
+
+                if (!(searchOnChange && val)) return;
+
+                const addresses = debounceSA(
+                  bingMapsUrl,
+                  bingMapsKey,
+                  maxResults,
+                  val
+                );
+                setSuggestions(addresses);
               }}
               onClear={() => {
                 setComposite("");
