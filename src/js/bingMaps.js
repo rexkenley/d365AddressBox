@@ -75,3 +75,30 @@ export const getSuggestions = async (
     console.error(ex);
   }
 };
+
+/**
+ * @module bing/getImagery
+ * @function
+ * @param {string} bingMapsUrl
+ * @param {string} bingMapsKey
+ * @param {number} latitude
+ * @param {number} longtitude
+ * @return {Promise}
+ * @link https://docs.microsoft.com/en-us/bingmaps/rest-services/imagery/get-a-static-map
+ */
+export const getImagery = async (
+  bingMapsUrl,
+  bingMapsKey,
+  latitude,
+  longtitude
+) => {
+  try {
+    if (!bingMapsUrl.endsWith("/")) bingMapsUrl += "/";
+    let url = `${bingMapsUrl}Imagery/Map/Road/${latitude},${longtitude}/18?mapSize=500,500&pp=${latitude},${longtitude};66&mapLayer=Basemap,Buildings&key=${bingMapsKey}`;
+
+    const res = await fetch(url);
+    return res.body.getReader().read();
+  } catch (ex) {
+    console.error(ex);
+  }
+};

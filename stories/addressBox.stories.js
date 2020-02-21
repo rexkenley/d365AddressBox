@@ -53,4 +53,15 @@ storiesOf("AddressBox", module)
       bingMapsKey={bingMapsKey}
       maxResults={maxResults}
     />
-  ));
+  ))
+  .add(
+    "with props bingMapUrl, bingMapKey, maxResults and searchOnChange",
+    () => (
+      <AddressBox
+        bingMapsUrl={bingMapsUrl}
+        bingMapsKey={bingMapsKey}
+        maxResults={maxResults}
+        searchOnChange={true}
+      />
+    )
+  );

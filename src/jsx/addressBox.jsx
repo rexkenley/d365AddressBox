@@ -18,7 +18,7 @@ import { initializeIcons } from "@uifabric/icons";
 import AwesomeDebouncePromise from "awesome-debounce-promise";
 
 import { composeAddress } from "../js/address";
-import { getAddresses, getSuggestions } from "../js/bingMaps";
+import { getAddresses, getSuggestions, getImagery } from "../js/bingMaps";
 
 initializeIcons();
 
@@ -111,7 +111,17 @@ const sbRef = React.createRef(),
             latitude: coordinates[0],
             longtitude: coordinates[1]
           };
-        });
+        }),
+        images = addresses.map(a => {
+          const { latitude, longtitude } = a;
+
+          return getImagery(bingMapsUrl, bingMapsKey, latitude, longtitude);
+        }),
+        res3 = await Promise.all(images);
+
+      res3.forEach((r, idx) => {
+        addresses[idx].image = r.value;
+      });
 
       return addresses;
     } catch (ex) {
@@ -221,7 +231,7 @@ const sbRef = React.createRef(),
 
                 if (!(searchOnChange && val)) return;
 
-                const addresses = debounceSA(
+                const addresses = await debounceSA(
                   bingMapsUrl,
                   bingMapsKey,
                   maxResults,
