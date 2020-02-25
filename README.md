@@ -2,6 +2,8 @@
 
 A multi functional address box control powered by BingMaps
 
+**[This project is on hold due to a pcf bug](https://powerusers.microsoft.com/t5/Power-Apps-Component-Framework/Binding-to-address-fields-on-contact-account/m-p/301395#M369)**
+
 **Features**
 
 - A search box that queries BingMaps for best possible addresses
