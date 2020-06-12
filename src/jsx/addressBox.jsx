@@ -1,19 +1,13 @@
 import get from "lodash/get";
 import React, { useState, useEffect } from "react";
-import {
-  Stack,
-  Callout,
-  DirectionalHint,
-  IconButton,
-  PrimaryButton
-} from "office-ui-fabric-react";
-import {
-  DetailsList,
-  SelectionMode
-} from "office-ui-fabric-react/lib/DetailsList";
-import { Fabric } from "office-ui-fabric-react/lib/Fabric";
-import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
-import { TextField } from "office-ui-fabric-react/lib/TextField";
+import { Stack } from "@fluentui/react/lib/Stack";
+import { Callout, DirectionalHint } from "@fluentui/react/lib/Callout";
+import { IconButton, PrimaryButton } from "@fluentui/react/lib/Button";
+import { DetailsList, SelectionMode } from "@fluentui/react/lib/DetailsList";
+import { Fabric } from "@fluentui/react/lib/Fabric";
+import { SearchBox } from "@fluentui/react/lib/SearchBox";
+import { TextField } from "@fluentui/react/lib/TextField";
+
 import { initializeIcons } from "@uifabric/icons";
 import AwesomeDebouncePromise from "awesome-debounce-promise";
 
@@ -62,8 +56,8 @@ const sbRef = React.createRef(),
     {
       key: "address",
       name: "Address",
-      fieldName: "formattedAddress"
-    }
+      fieldName: "formattedAddress",
+    },
   ],
   calloutWidth = 350,
   searchAddress = async (bingMapsUrl, bingMapsKey, maxResults, value) => {
@@ -79,13 +73,13 @@ const sbRef = React.createRef(),
           res,
           "resourceSets[0].resources[0].value",
           []
-        ).map(r => {
+        ).map((r) => {
           const {
             addressLine,
             locality,
             adminDistrict,
             postalCode,
-            countryRegion
+            countryRegion,
           } = r.address;
 
           return getAddresses(
@@ -100,19 +94,19 @@ const sbRef = React.createRef(),
           );
         }),
         res2 = await Promise.all(suggestedDetails),
-        addresses = res2.map(r => {
+        addresses = res2.map((r) => {
           const resource = get(r, "resourceSets[0].resources[0]", []),
             {
               address,
-              point: { coordinates }
+              point: { coordinates },
             } = resource;
           return {
             ...address,
             latitude: coordinates[0],
-            longtitude: coordinates[1]
+            longtitude: coordinates[1],
           };
         }),
-        images = addresses.map(a => {
+        images = addresses.map((a) => {
           const { latitude, longtitude } = a;
 
           return getImagery(bingMapsUrl, bingMapsKey, latitude, longtitude);
@@ -129,7 +123,7 @@ const sbRef = React.createRef(),
     }
   },
   debounceSA = AwesomeDebouncePromise(searchAddress, 300),
-  AddressBox = props => {
+  AddressBox = (props) => {
     const {
         bingMapsUrl,
         bingMapsKey,
@@ -150,7 +144,7 @@ const sbRef = React.createRef(),
         meta,
         disabled,
         hidden,
-        onAddressChange
+        onAddressChange,
       } = props,
       [_composite, setComposite] = useState(""),
       [_line1, setLine1] = useState(""),
@@ -204,7 +198,7 @@ const sbRef = React.createRef(),
       county,
       country,
       latitude,
-      longtitude
+      longtitude,
     ]);
 
     if (hidden) return <Fabric />;
@@ -217,7 +211,7 @@ const sbRef = React.createRef(),
               placeholder="Enter Address"
               disabled={disabled}
               value={_composite}
-              onSearch={async val => {
+              onSearch={async (val) => {
                 const addresses = await searchAddress(
                   bingMapsUrl,
                   bingMapsKey,
@@ -278,7 +272,7 @@ const sbRef = React.createRef(),
               items={_suggestions}
               checkboxVisibility={2}
               selectionMode={SelectionMode.single}
-              onItemInvoked={async item => {
+              onItemInvoked={async (item) => {
                 const {
                   formattedAddress,
                   addressLine,
@@ -288,7 +282,7 @@ const sbRef = React.createRef(),
                   adminDistrict2,
                   countryRegion,
                   latitude,
-                  longtitude
+                  longtitude,
                 } = item;
 
                 setComposite(formattedAddress);
